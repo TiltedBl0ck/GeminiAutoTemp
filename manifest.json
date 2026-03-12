@@ -2,9 +2,22 @@
   "manifest_version": 3,
   "name": "Gemini Auto Temp Chat",
   "version": "1.0",
+  "version_name": "1.0.0",
   "description": "Automatically enables Temporary Chat on gemini.google.com",
   "permissions": ["storage"],
-  "action": { "default_popup": "popup.html" },
+  "host_permissions": ["https://gemini.google.com/*"],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png"
+    }
+  },
   "content_scripts": [{
     "matches": ["https://gemini.google.com/*"],
     "js": ["content.js"],

@@ -1,13 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
   const toggleSwitch = document.getElementById('toggleSwitch');
 
-  // Load the current state from Chrome storage (default is ON)
   chrome.storage.sync.get({ autoTempEnabled: true }, (data) => {
+    if (chrome.runtime.lastError) {
+      console.error("Gemini Auto Temp: failed to load settings:", chrome.runtime.lastError);
+      return;
+    }
     toggleSwitch.checked = data.autoTempEnabled;
   });
 
-  // Save the state when the user clicks the toggle
   toggleSwitch.addEventListener('change', () => {
-    chrome.storage.sync.set({ autoTempEnabled: toggleSwitch.checked });
+    chrome.storage.sync.set({ autoTempEnabled: toggleSwitch.checked }, () => {
+      if (chrome.runtime.lastError) {
+        console.error("Gemini Auto Temp: failed to save settings:", chrome.runtime.lastError);
+      }
+    });
   });
 });
